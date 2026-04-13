@@ -1,6 +1,6 @@
-# Design Skills — Team Entry Point
+# Design Superpowers — Team Entry Point
 
-Six Claude Code commands for the Talon.One design team. Each command is a router that dispatches to inline sub-agents based on your request. All commands adapt to your project's maturity level before acting.
+Six Claude Code commands for design teams. Each command is a router that dispatches to inline sub-agents based on your request. All commands adapt to your project's maturity level before acting.
 
 ---
 

@@ -1,6 +1,6 @@
-# design-skills
+# design-superpowers
 
-Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. Built for the Talon.One design team; adapts from greenfield projects to enterprise design systems.
+Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. Adapts from greenfield projects to enterprise design systems.
 
 ## What it does
 
