@@ -1,6 +1,6 @@
 # Token Architecture (L2)
 
-> Loaded by /ds-make Token Architect, /map-design Token Extractor. See `skills/shared/tone-ds-context.md` for the Tone DS implementation example.
+> Loaded by /ds-make Token Architect, /map-design Token Extractor. See the `tone-example` branch for a fully populated enterprise-tier implementation example.
 
 ## 3-Tier Model
 

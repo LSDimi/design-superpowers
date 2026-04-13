@@ -50,12 +50,12 @@ Breaking DS rules is ONLY acceptable during DS Producer discovery and iteration 
 
 ## Consumption Rules
 
-- **Mandatory:** Use Tone components. Never detach. Always use the latest library version.
+- **Mandatory:** Use DS components. Never detach. Always use the latest library version.
 - **No overrides** by Consumers (except copy/text content).
 - **All components** are responsive, accessible, support dark mode and zoom levels.
 - **Swappable areas** (modals, drawers, etc.) use unpublished microcomponents to enforce allowed swaps.
 - **No temporary workarounds** — when something new is needed, Consumer creates a ticket for Producers.
-- **Pre-handoff:** Run Tone Lint → designer does UX review → handoff to engineering.
+- **Pre-handoff:** Run DS lint (`{{governance.lint.tool}}`) → designer does UX review → handoff to engineering.
 
 ## Publishing Cascade
 
@@ -65,9 +65,9 @@ Changes must propagate upward in order. Each level must pass QA before the next 
 Foundations → Components → Patterns (L1) → Squad Patterns (L2) → Final files
 ```
 
-**QA gate per level:** Validate tokens/overrides, run Tone Lint, check dark mode, verify in demo area before promoting to next level.
+**QA gate per level:** Validate tokens/overrides, run DS lint, check dark mode, verify in demo area before promoting to next level.
 
-## Tone DS Governance Checklist
+## DS Governance Checklist
 
 Use this during /ds-manage Publisher and /design-review DS Compliance Checker workflows.
 
@@ -79,7 +79,7 @@ Use this during /ds-manage Publisher and /design-review DS Compliance Checker wo
 - Branch name mentions version (from Notion changelog)
 
 **Foundations (Lint Plugin):**
-- Tone colors, typography (components not text styles), icons, effects/elevations, radius, stroke, spacing applied
+- DS colors, typography (components not text styles), icons, effects/elevations, radius, stroke, spacing applied
 - No unnecessary hidden background layers
 
 **Structure:**
@@ -112,8 +112,8 @@ Use this during /ds-manage Publisher and /design-review DS Compliance Checker wo
 
 ### Pattern-Specific Additions
 
-- Tone components used throughout (no detached instances)
-- Tone spacing tokens applied (no ad-hoc values)
+- DS components used throughout (no detached instances)
+- DS spacing tokens applied (no ad-hoc values)
 - Modals use copies from project library (not external file instances)
 
 ## Communication Cadence

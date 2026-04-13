@@ -124,7 +124,7 @@ Every component in the DS should have a demo area in Figma with these sections i
 5. **Accessibility** — keyboard behavior note, screen reader annotation
 6. **Do / Don't** — 2–4 paired examples showing correct vs. incorrect usage
 
-Keep demo areas in the Figma "Demo Area" file (see `skills/shared/tone-ds-context.md` for file key).
+Keep demo areas in the Figma "Demo Area" file (see `.ds-context.md` for file keys).
 
 ## Coverage Checklist
 

@@ -16,7 +16,7 @@
 | Multi-page sprawl | Simple CRUD split across 3+ pages | Single-surface with sections/tabs/progressive disclosure |
 | Double-drawers | Drawer opening another drawer | Inline expansion, modal for confirmation, or navigate to detail page |
 | Information overload | All entity attributes shown everywhere | Only attributes relevant to current task/step |
-| Inconsistent patterns | Different list/detail patterns for similar entities | Reuse Tone Patterns (L1) |
+| Inconsistent patterns | Different list/detail patterns for similar entities | Reuse DS Patterns (L1) |
 | Context loss | Navigation loses place or unsaved state | Preserve context, inline editing, auto-save |
 | Overextended flows | Asking for info that could be defaulted | Smart defaults, optional fields collapsed |
 
@@ -64,14 +64,14 @@ Breaking DS rules is ONLY acceptable during DS Producer discovery and iteration 
 
 ## Consumption Rules
 
-- **Mandatory:** Use Tone components. Never detach. Always use latest library version.
+- **Mandatory:** Use DS components. Never detach. Always use latest library version.
 - **No overrides** by Consumers (except copy/text content).
 - **All components** are responsive, accessible, support dark mode and zoom levels.
 - **Swappable areas** (modals, drawers, etc.) use unpublished microcomponents to enforce allowed swaps.
 - **No temporary workarounds** — when something new is needed, Consumer creates a ticket for Producers.
-- **Pre-handoff:** Run Tone Lint → designer does UX review → handoff to engineering.
+- **Pre-handoff:** Run DS lint (`{{governance.lint.tool}}`) → designer does UX review → handoff to engineering.
 
-## Tone DS Governance Checklist
+## DS Governance Checklist
 
 ### All Artifact Types (Component, Foundation, Icon, Pattern)
 
@@ -81,7 +81,7 @@ Breaking DS rules is ONLY acceptable during DS Producer discovery and iteration 
 - Branch name mentions version (from Notion changelog)
 
 **Foundations (Lint Plugin):**
-- Tone colors, typography (components not text styles), icons, effects/elevations, radius, stroke, spacing applied
+- DS colors, typography (components not text styles), icons, effects/elevations, radius, stroke, spacing applied
 - No unnecessary hidden background
 
 **Structure:**
@@ -113,8 +113,8 @@ Breaking DS rules is ONLY acceptable during DS Producer discovery and iteration 
 - Branch conflicts resolved
 
 ### Pattern-Specific Additions
-- Tone components used
-- Tone spacing applied
+- DS components used
+- DS spacing applied
 - Modals use copies from project library
 
 ## Publishing Cascade Order
