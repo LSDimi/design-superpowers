@@ -15,7 +15,7 @@ Each command is a router that dispatches to specialized sub-agents based on your
 | `/design-review` | Evaluate designs — UX heuristics, WCAG, DS compliance, visual quality, motion |
 | `/map-design` | Extract design language from any artifact and generate a `DESIGN.md` |
 
-**L3 specializations** (auto-invoked when Tone DS is detected):
+**L3 specializations** (auto-invoked when enterprise DS is detected via `.ds-context.md`):
 - `ds-producer` — delegated from `/ds-make`
 - `ds-consumer` — delegated from `/design`
 
@@ -40,7 +40,7 @@ User → /command → Router → Sub-agent (with scoped knowledge)
 | **L0** Greenfield | No `DESIGN.md`, no `.ds-context.md` | Full creative freedom; bootstrap via `/creative` → `/map-design` |
 | **L1** Design language defined | `DESIGN.md` present | Commands use DESIGN.md as constraint |
 | **L2** Has design system | `.ds-context.md` with library keys | Full DS-aware composition and compliance |
-| **L3** Enterprise DS | `.ds-context.md` names Tone (or equivalent) | Delegates to ds-producer/ds-consumer; full governance |
+| **L3** Enterprise DS | `.ds-context.md` with `ds.maturity: enterprise` | Delegates to ds-producer/ds-consumer; full governance |
 
 Commands announce the detected level at the start of every session.
 
@@ -60,7 +60,9 @@ skills/
 │   ├── knowledge/              # L1 core + 13 L2 domain references
 │   ├── data/                   # L3 curated CSVs (queried on demand)
 │   ├── maturity-detection.md   # How commands detect L0–L3
-│   ├── tone-ds-context.md      # L4 Tone-specific context
+│   ├── figma-adapter.md        # Figma adapter detection and tool mapping
+│   ├── ds-context-loader.md    # Shared Step 0 context loading procedure
+│   ├── ds-context-schema.md    # .ds-context.md field reference
 │   └── design-principles.md    # Legacy, retained for backcompat
 ├── creative/SKILL.md           # /creative + 4 sub-agents
 ├── ds-make/SKILL.md            # /ds-make + 4 sub-agents (+ L3 → ds-producer)
@@ -68,8 +70,8 @@ skills/
 ├── design/SKILL.md             # /design + 4 sub-agents (+ L3 → ds-consumer)
 ├── design-review/SKILL.md      # /design-review + 5 sub-agents
 ├── map-design/SKILL.md         # /map-design + 4 sub-agents
-├── ds-producer/SKILL.md        # L3 Tone specialization
-└── ds-consumer/SKILL.md        # L3 Tone specialization
+├── ds-producer/SKILL.md        # L3 Enterprise specialization
+└── ds-consumer/SKILL.md        # L3 Enterprise specialization
 docs/superpowers/
 ├── plans/                      # Implementation plans
 └── specs/                      # Architecture specs
@@ -86,9 +88,9 @@ tools/                          # Figma plugin integration scripts
 ## Built with
 
 - Claude Code skills (Markdown SKILL.md format)
-- Figma MCP (`use_figma`) for design context
+- Figma adapter (PluginOS or classic Figma MCP) for design context
 - Curated knowledge from Dieter Rams, Nielsen heuristics, WCAG 2.1 AA, Baymard usability research, and awesome-design-md conventions
 
 ## License
 
-Internal Talon.One project. Not currently licensed for external distribution.
+Not currently licensed for external distribution.

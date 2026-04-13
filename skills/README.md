@@ -15,12 +15,12 @@ Six Claude Code commands for design teams. Each command is a router that dispatc
 | `/design-review` | Evaluate designs — UX heuristics, WCAG accessibility, DS compliance, visual quality, motion |
 | `/map-design` | Extract design language from any artifact (screenshot, Figma, URL) and generate a `DESIGN.md` |
 
-**L3 Tone specializations** (invoked automatically at L3 — not called directly):
+**L3 Enterprise specializations** (invoked automatically at L3 — not called directly):
 
 | Skill | Delegated from |
 |-------|---------------|
-| `ds-producer` | `/ds-make` when Tone DS is detected |
-| `ds-consumer` | `/design` when Tone DS is detected |
+| `ds-producer` | `/ds-make` when enterprise DS is detected |
+| `ds-consumer` | `/design` when enterprise DS is detected |
 
 ---
 
@@ -63,7 +63,7 @@ Six Claude Code commands for design teams. Each command is a router that dispatc
                        │
 ┌──────────────────────▼──────────────────────────────────┐
 │  L4 — Project Context (persisted, per-project)          │
-│  DESIGN.md (root) · .ds-context.md · tone-ds-context.md│
+│  DESIGN.md (root) · .ds-context.md                     │
 └─────────────────────────────────────────────────────────┘
 ```
 
@@ -78,7 +78,7 @@ Every command detects your project's maturity before acting:
 | L0 | Greenfield | No `DESIGN.md`, no `.ds-context.md` | Full freedom; `/creative` → `/map-design` to bootstrap |
 | L1 | Design language defined | `DESIGN.md` exists | Commands use DESIGN.md as constraint |
 | L2 | Has design system | `.ds-context.md` with Figma library keys | Full DS-aware behavior |
-| L3 | Enterprise DS (Tone) | `.ds-context.md` names Tone | `/ds-make` → ds-producer; `/design` → ds-consumer |
+| L3 | Enterprise DS | `.ds-context.md` with `ds.maturity: enterprise` | `/ds-make` → ds-producer; `/design` → ds-consumer |
 
 Commands announce the detected level at the start of every session: "Detected maturity level: L2. Adapting behavior accordingly."
 
@@ -101,5 +101,5 @@ Commands announce the detected level at the start of every session: "Detected ma
 
 | Plugin | Purpose |
 |--------|---------|
-| Tone Lint | Foundation validation, detached component detection |
+| DS lint (configurable via `{{governance.lint.tool}}`) | Foundation validation, detached component detection |
 | Prostar | Property table generation in Demo area |

@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Six universal Claude Code commands for the Talon.One design team, backed by a 4-layer knowledge system. See full spec at `docs/superpowers/specs/2026-04-09-universal-design-plugin-design.md`.
+Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. See full spec at `docs/superpowers/specs/2026-04-09-universal-design-plugin-design.md`.
 
 **Commands:**
 - **`/creative`** (`skills/creative/SKILL.md`) — Visual direction, moodboards, palettes, typography, layout systems
@@ -14,23 +14,23 @@ Six universal Claude Code commands for the Talon.One design team, backed by a 4-
 - **`/design-review`** (`skills/design-review/SKILL.md`) — Evaluate designs against heuristics, a11y, DS compliance, visual quality, motion
 - **`/map-design`** (`skills/map-design/SKILL.md`) — Extract design language from any artifact and generate DESIGN.md
 
-**L3 Specializations (Tone/Enterprise):**
-- **DS Producer** (`skills/ds-producer/SKILL.md`) — Delegated to by `/ds-make` at L3 (Tone DS detected)
-- **DS Consumer** (`skills/ds-consumer/SKILL.md`) — Delegated to by `/design` at L3 (Tone DS detected)
+**L3 Specializations (Enterprise DS):**
+- **DS Producer** (`skills/ds-producer/SKILL.md`) — Delegated to by `/ds-make` at L3 (enterprise DS detected)
+- **DS Consumer** (`skills/ds-consumer/SKILL.md`) — Delegated to by `/design` at L3 (enterprise DS detected)
 
 **Knowledge system (4 layers):**
 - L1: `skills/shared/knowledge/core-principles.md` — always loaded into every sub-agent
 - L2: 13 domain files in `skills/shared/knowledge/` — loaded per sub-agent as needed
 - L3: 4 curated CSVs in `skills/shared/data/` — queried on demand via Grep, never pre-loaded
-- L4: `DESIGN.md` (project root) / `.ds-context.md` / `skills/shared/tone-ds-context.md` — project-specific context
+- L4: `DESIGN.md` (project root) / `.ds-context.md` — project-specific context
 
 ## Tech Stack
 
-- **Design:** Figma (Tone DS) — inspect via Figma MCP
+- **Design:** Figma — inspect via configured Figma adapter (see `skills/shared/figma-adapter.md`)
 - **Code:** React, ArkUI, Zag.js
 - **DS Documentation:** uSpec (`github.com/redongreen/uSpec`)
 - **Project management:** Shortcut (tickets, changelogs)
-- **Figma plugins:** Tone Lint (validation), Prostar (property tables)
+- **Figma plugins:** DS lint (validation), Prostar (property tables)
 
 ## File Structure
 
@@ -58,7 +58,9 @@ skills/
 │   │   ├── usability-homepage.csv        # L3
 │   │   └── ecommerce-usability.csv       # L3
 │   ├── maturity-detection.md       # L0–L3 detection helper
-│   ├── tone-ds-context.md          # L4 Tone DS project context (.ds-context.md equivalent)
+│   ├── figma-adapter.md            # Figma adapter detection and tool mapping
+│   ├── ds-context-loader.md        # Shared Step 0 context loading procedure
+│   ├── ds-context-schema.md        # .ds-context.md field reference
 │   └── design-principles.md        # Legacy — IA principles + anti-patterns (retained for ds-producer/ds-consumer compat)
 ├── creative/SKILL.md               # /creative — 4 sub-agents
 ├── ds-make/SKILL.md                # /ds-make — 4 sub-agents + L3 delegation to ds-producer
@@ -66,8 +68,8 @@ skills/
 ├── design/SKILL.md                 # /design — 4 sub-agents + L3 delegation to ds-consumer
 ├── design-review/SKILL.md          # /design-review — 5 sub-agents
 ├── map-design/SKILL.md             # /map-design — 4 sub-agents
-├── ds-producer/SKILL.md            # L3 Tone specialization (delegated from /ds-make)
-└── ds-consumer/SKILL.md            # L3 Tone specialization (delegated from /design)
+├── ds-producer/SKILL.md            # L3 Enterprise specialization (delegated from /ds-make)
+└── ds-consumer/SKILL.md            # L3 Enterprise specialization (delegated from /design)
 docs/superpowers/
 ├── plans/                          # Implementation plans
 └── specs/                          # Architecture specs
@@ -77,7 +79,7 @@ docs/superpowers/
 
 - Each command is a single SKILL.md acting as a router to inline sub-agent sections
 - Commands detect project maturity (L0 Greenfield → L3 Enterprise) before routing; behavior adapts per level
-- At L3 (Tone DS), /ds-make delegates to ds-producer and /design delegates to ds-consumer — the L3 skills are specializations, not replacements
+- At L3 (Enterprise DS), /ds-make delegates to ds-producer and /design delegates to ds-consumer — the L3 skills are specializations, not replacements
 - L3 CSVs are never pre-loaded; sub-agents query them on demand via Grep when a specific finding needs backing
 - /design and ds-consumer NEVER create new components — gaps route to /ds-make
 - Publishing follows cascade: Foundations → Components → Patterns → Squad Patterns → Final files; each level must pass QA before the next publishes
@@ -96,7 +98,7 @@ All commands ask 2-3 questions before non-trivial tasks. Skip when prompt is spe
 | `github.com/redongreen/uSpec` | DS documentation generation |
 | `skillscheck.ai` | Skill quality evaluation |
 | `impeccable.style` | Design system standards |
-| `docs.talon.one` | Product context for DS Consumer |
+| `.ds-context.md` `{{product.docs_url}}` | Product context for DS Consumer (configured per project) |
 
 ## Conventions
 
