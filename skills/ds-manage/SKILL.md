@@ -5,7 +5,7 @@ description: Use for DS operations — publishing cascades, adoption analytics, 
 
 # /ds-manage — DS Operations
 
-Router for ongoing design system management. Handles publishing, analytics, documentation, and health monitoring. At L3 (Tone), Publisher and Health Monitor integrate with Tone Lint via Figma MCP.
+Router for ongoing design system management. Handles publishing, analytics, documentation, and health monitoring. At L3 (Enterprise), Publisher and Health Monitor integrate with DS lint via the configured Figma adapter.
 
 ## Maturity Detection
 
@@ -16,7 +16,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 > "DS manage operations require an existing design system (L2+). It looks like this project doesn't have one yet. Run `/ds-make` to create one, or `/creative` → `/map-design` to establish a design language first."
 
 - **L2 (DS exists):** Full operations available using governance.md rules and manual checklists.
-- **L3 (Tone/Enterprise):** Full operations + Tone Lint integration via `use_figma` for Publisher and Health Monitor. Library Analytics CLI available for Analytics Reporter.
+- **L3 (Enterprise DS):** Full operations + DS lint integration via configured Figma adapter (see `skills/shared/figma-adapter.md`) for Publisher and Health Monitor. Library analytics available for Analytics Reporter.
 
 Always announce the detected level before routing.
 
@@ -56,7 +56,7 @@ Two common multi-sub-agent chains:
 
 **Load additionally:** None — `governance.md` (already loaded) contains the full publishing cascade rules.
 
-**At L3:** Use `use_figma` to read Tone Lint results before publishing. Lint violations are blocking — do not proceed until resolved.
+**At L3:** Use the configured Figma adapter to run DS lint before publishing (see `skills/shared/figma-adapter.md`). Lint violations are blocking — do not proceed until resolved.
 
 ### Ask first
 
@@ -68,7 +68,7 @@ Two common multi-sub-agent chains:
 
 1. **Pre-publish gate**: Verify the artifact passes all quality gates from `governance.md`:
    - [ ] Governance checklist — all applicable items pass
-   - [ ] Tone Lint — no violations (L3: read via `use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "lint_results")')`)
+   - [ ] DS lint — no violations (L3: read via configured Figma adapter using `{{governance.lint.tool}}`)
    - [ ] Multi-scale test complete
    - [ ] Dark mode tested
    - [ ] Demo area present (property table + behavioral guidelines)
@@ -99,7 +99,7 @@ Two common multi-sub-agent chains:
 | Check | Status |
 |-------|--------|
 | Governance checklist | PASS / FAIL |
-| Tone Lint (L3) | PASS / FAIL / N/A |
+| DS lint (L3) | PASS / FAIL / N/A |
 ...
 
 ### Cascade Map
@@ -121,7 +121,7 @@ Level 3 — Patterns: <list>
 
 **Load additionally:** None.
 
-**At L3:** Library Analytics CLI is available (Node.js pipeline). Run via subprocess or reference cached CSV output at `output/latest_library_instances.csv`. Tracked libraries: Tone. Foundations (`Pn9sIWsLKN7gQKj1RkV75j`), Tone. Components (`rVLnzp5jPQee88ThJR81Ha`), Tone. Patterns (`H4A6DU7tCNJ7Qt4UwCuQy2`), Legacy Library (`dqlNDxAO5JY0LliAPadihh`).
+**At L3:** Library analytics are available. Track adoption across all libraries declared in `{{figma.libraries}}` from `.ds-context.md`. Compare DS library usage vs. non-DS usage.
 
 ### Ask first
 
@@ -132,8 +132,8 @@ Level 3 — Patterns: <list>
 ### Workflow
 
 1. **Data source**: At L3, reference `output/latest_library_instances.csv` or ask user to run `FIGMA_TOKEN=xxx npm run build`. At L2, ask user to provide usage data (CSV, spreadsheet, or manual estimates).
-2. **Adoption rate**: Calculate Tone instances vs. Legacy Library instances per team. Key metric: `tone_instances / (tone_instances + legacy_instances) × 100 = adoption %`.
-3. **Trend analysis**: Compare against prior period if data available. Flag regressions (teams moving away from Tone) and bright spots (teams increasing adoption).
+2. **Adoption rate**: Calculate DS component instances vs. non-DS instances per team. Key metric: `ds_instances / (ds_instances + non_ds_instances) × 100 = adoption %`.
+3. **Trend analysis**: Compare against prior period if data available. Flag regressions (teams moving away from the DS) and bright spots (teams increasing adoption).
 4. **Component breakdown**: Top 10 most used components. Top 5 least used (flag for deprecation consideration).
 5. **Legacy hotspots**: Which files or teams have the highest legacy instance counts? These are migration priorities.
 6. **Recommendations**: Based on trends, recommend actions — deprecation candidates, migration sprints, team outreach.
@@ -147,7 +147,7 @@ Level 3 — Patterns: <list>
 Overall adoption: X%  (↑/↓ from last period: Y%)
 
 ### By Team
-| Team | Tone | Legacy | Adoption % | Trend |
+| Team | DS Library | Non-DS | Adoption % | Trend |
 ...
 
 ### Top Components
@@ -223,21 +223,21 @@ Documentation output follows uSpec format from `documentation.md`. Deliver as st
 
 **Load additionally:** None — `governance.md` (already loaded) contains the governance checklist and cascade rules.
 
-**At L3:** Read Tone Lint results via `use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "lint_results")')` for lint violations, and `use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "audit_results")')` for a full inventory of detached components and variable bindings.
+**At L3:** Read DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})` for a full inventory of lint violations, detached components, and naming issues.
 
 **At L2:** Run governance checklist manually using rules from `governance.md`. Ask user to provide screen exports or Figma links for inspection.
 
 ### Ask first
 
 1. What is the scope? (full file / specific page / selection)
-2. What is the Figma file key? (required for L3 Tone Lint reads)
+2. What is the Figma file key? (required for L3 lint reads)
 3. Any specific concern — drift, detached components, token compliance, legacy usage?
 
 ### Workflow
 
 1. **L3 path**:
-   - Read lint results: `use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "lint_results")')`
-   - Read audit results: `use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "audit_results")')`
+   - Read lint results via configured Figma adapter (PluginOS: `run_operation("lint_styles")` + `run_operation("lint_detached")`)
+   - Read audit results via configured Figma adapter (PluginOS: `run_operation("lint_naming")`)
    - Parse results: group violations by rule type (fill, stroke, spacing, textStyle, instanceOverride, naming — see `skills/ds-producer/SKILL.md` for full rule table).
    - Classify each finding by severity: P0 (lint violation blocking publish), P1 (deviation from governance), P2 (minor inconsistency), P3 (cosmetic/naming).
 

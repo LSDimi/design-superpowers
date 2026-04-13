@@ -14,7 +14,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 - **L0 (Greenfield):** Full creative freedom — all options open. Output feeds into DESIGN.md via /map-design after exploration.
 - **L1 (DESIGN.md exists):** Refine the existing design language. Load DESIGN.md as a constraint. Propose additions that extend it coherently.
 - **L2 (DS exists):** Work within the design system. Respect existing tokens; only propose net-new additions not already covered.
-- **L3 (Tone/Enterprise):** Tone-aware. Delegate any token creation proposals to /ds-make. Restrict to exploration and visual rationale.
+- **L3 (Enterprise DS):** DS-constrained. Delegate any token creation proposals to /ds-make. Restrict to exploration and visual rationale.
 
 Always announce the detected level before proceeding.
 

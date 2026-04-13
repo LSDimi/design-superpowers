@@ -5,7 +5,7 @@ description: Use when designing product features, flows, pages, or screens using
 
 # /design — Product Design with DS
 
-Router for product design sub-agents. Composes interfaces from existing DS components and patterns. At L3 (Tone/Enterprise), delegates to `skills/ds-consumer/SKILL.md`.
+Router for product design sub-agents. Composes interfaces from existing DS components and patterns. At L3 (Enterprise), delegates to `skills/ds-consumer/SKILL.md`.
 
 ## Maturity Detection
 
@@ -14,7 +14,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 - **L0 (Greenfield):** Block. A design language must exist before composing. Redirect: "Run /creative to establish a visual direction, then /map-design to generate DESIGN.md."
 - **L1 (DESIGN.md exists):** Compose using DESIGN.md primitives (colors, type scale, spacing). No DS library to reference — work from documented values only.
 - **L2 (DS exists):** Full DS-aware composition. Load `.ds-context.md` for library keys. Select from available components; flag gaps via Gap Detector.
-- **L3 (Tone/Enterprise):** Delegate to `skills/ds-consumer/SKILL.md`. Sub-agents below are available for exploration and planning; final design execution goes through ds-consumer workflows.
+- **L3 (Enterprise DS):** Delegate to `skills/ds-consumer/SKILL.md`. Sub-agents below are available for exploration and planning; final design execution goes through ds-consumer workflows.
 
 Always announce the detected level before routing.
 
@@ -55,7 +55,7 @@ If the request spans multiple (e.g., "compose this page and flag any gaps"), run
 ### Ask first
 
 1. What UI need are you trying to address? (one sentence — describe the user action or content, not the component name)
-2. What maturity level are we working at? (confirm from detection — L1 DESIGN.md, L2 DS library, L3 Tone)
+2. What maturity level are we working at? (confirm from detection — L1 DESIGN.md, L2 DS library, L3 enterprise DS)
 3. Any constraints — viewport, density, or accessibility requirements?
 
 ### Workflow
@@ -154,7 +154,7 @@ Offer to pass to Gap Detector if any zone lacks a component fit.
 
 **Optional L3 query:** `Grep pattern="<flow type>" path="skills/shared/data/ecommerce-usability.csv"` or `usability-homepage.csv` for domain-specific pattern precedent.
 
-**L3 delegation:** If maturity is L3, consult **ds-consumer Workflow 1 step "Inventory"** for Tone Patterns (L1) and Squad Patterns (L2) lookup via Figma MCP.
+**L3 delegation:** If maturity is L3, consult **ds-consumer Workflow 1 step "Inventory"** for DS patterns (from `{{figma.libraries[role=patterns]}}`) and squad patterns lookup via the configured Figma adapter.
 
 ### Ask first
 
@@ -180,7 +180,7 @@ Offer to pass to Gap Detector if any zone lacks a component fit.
 
 ### Match Details
 **Pattern name:** <name or "none">
-**Source:** <Tone Patterns L1 / Squad Patterns L2 / DESIGN.md / Not found>
+**Source:** <DS Patterns / Squad Patterns / DESIGN.md / Not found>
 **Fits because:** <rationale>
 **Diverges at:** <what the pattern doesn't cover, if near match>
 

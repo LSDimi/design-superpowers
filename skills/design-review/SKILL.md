@@ -14,7 +14,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 - **L0 (Greenfield):** Run UX Critic, A11y Auditor, Visual Quality Inspector, and Motion Reviewer (if motion present). No DS Compliance Checker — no DS to check against.
 - **L1 (DESIGN.md exists):** All L0 sub-agents plus DESIGN.md conformance checking within UX Critic and Visual Quality Inspector.
 - **L2 (DS exists):** All 5 sub-agents active. DS Compliance Checker runs manual governance checklist from `governance.md`.
-- **L3 (Tone/Enterprise):** All 5 sub-agents + DS Compliance Checker integrates Tone Lint via `use_figma` for automated compliance data.
+- **L3 (Enterprise DS):** All 5 sub-agents + DS Compliance Checker integrates DS lint via the configured Figma adapter (see `skills/shared/figma-adapter.md`) for automated compliance data.
 
 Always announce the detected level before running.
 
@@ -44,7 +44,7 @@ If the user asks for a specific sub-agent only (e.g., "just check accessibility"
 | "visual", "alignment", "spacing", "layout quality", "polish" | Visual Quality Inspector |
 | "heuristics", "usability", "cognitive load", "ux critique", "UX review" | UX Critic |
 | "accessibility", "a11y", "WCAG", "contrast", "keyboard", "screen reader" | A11y Auditor |
-| "compliant", "DS check", "tokens", "overrides", "detached", "Tone Lint" | DS Compliance Checker |
+| "compliant", "DS check", "tokens", "overrides", "detached", "lint" | DS Compliance Checker |
 | "motion", "animation", "transition", "timing", "easing" | Motion Reviewer |
 | "full review", "audit", "review everything", or no specific sub-agent | Run full default chain |
 
@@ -222,7 +222,7 @@ After all sub-agents complete, produce:
 
 **Optional L3 query:** Not applicable — compliance is checked against DS governance rules, not CSVs.
 
-**L3 note:** At L3, this sub-agent reads Tone Lint results via `use_figma` before running the manual checklist.
+**L3 note:** At L3, this sub-agent reads DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`) before running the manual checklist.
 
 ### Ask first
 
@@ -231,14 +231,11 @@ After all sub-agents complete, produce:
 
 ### Workflow
 
-**At L3 (Tone DS):**
+**At L3 (Enterprise DS):**
 
-1. Read Tone Lint results:
-   ```
-   use_figma(fileKey, code: 'return figma.root.getSharedPluginData("tone_lint", "lint_results")')
-   ```
-   Parse the returned JSON for: `unbound_variables`, `detached_components`, `override_violations`, `naming_issues`.
-2. Supplement with the manual checklist below for any areas Tone Lint does not cover.
+1. Read DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})`.
+   Parse the returned results for: `unbound_variables`, `detached_components`, `override_violations`, `naming_issues`.
+2. Supplement with the manual checklist below for any areas DS lint does not cover.
 
 **At L2 (Generic DS) and L3 manual supplement:**
 
@@ -247,7 +244,7 @@ After all sub-agents complete, produce:
 5. **Detached components**: Are any DS components detached (converted to frames/groups)? Detached components are always P1 — they miss future DS updates.
 6. **Library version**: Is the DS library version current? Flag if a known update exists.
 7. **Pattern conformance**: Does the design use Patterns (L1) and Squad Patterns (L2) where available, or is it composing ad-hoc when a pattern exists?
-8. **Pre-handoff checklist** per `governance.md`: Tone Lint run, UX review done, all states designed, responsive breakpoints covered.
+8. **Pre-handoff checklist** per `governance.md`: DS lint run, UX review done, all states designed, responsive breakpoints covered.
 9. Assign severity: detached component = P1; unbound variable = P1; unauthorized override = P1; outdated library = P2; missing state = P2; pattern bypass = P2.
 
 ### Output format
@@ -255,7 +252,7 @@ After all sub-agents complete, produce:
 ```
 ## DS Compliance Findings — <Screen Name>
 **DS:** <DS name and version>
-**Lint source:** Tone Lint automated / Manual checklist
+**Lint source:** DS lint (automated via {{governance.lint.tool}}) / Manual checklist
 
 | # | Category | Component/Element | Issue | Severity | Fix |
 |---|----------|------------------|-------|----------|-----|

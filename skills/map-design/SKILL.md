@@ -14,7 +14,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 - **L0 (Greenfield):** Primary use case. Extract from reference artifacts or screenshots to bootstrap a `DESIGN.md` from scratch. No constraints — extract freely.
 - **L1 (DESIGN.md exists):** Enrich mode. Read the existing `DESIGN.md` first, then extract from the new artifact, and propose additions or corrections to each section.
 - **L2 (DS exists):** Refresh mode. Extract a snapshot of the current DS state from the DS library (via Figma MCP) to update `DESIGN.md` to reflect the current truth.
-- **L3 (Tone/Enterprise):** Limited. Tone already maintains a full DS; `/map-design` here is scoped to specific sections (e.g., regenerating the Agent Prompt Guide, or documenting a new squad library).
+- **L3 (Enterprise DS):** Limited. The enterprise DS already maintains a full design language; `/map-design` here is scoped to specific sections (e.g., regenerating the Agent Prompt Guide, or documenting a new squad library).
 
 Always announce the detected level before routing.
 

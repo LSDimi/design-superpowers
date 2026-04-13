@@ -5,7 +5,7 @@ description: Use when creating, updating, versioning, or deprecating design syst
 
 # /ds-make — DS Creation & Lifecycle
 
-Router for DS creation and lifecycle sub-agents. At L3 (Tone/Enterprise), delegates to `skills/ds-producer/SKILL.md` workflows.
+Router for DS creation and lifecycle sub-agents. At L3 (Enterprise), delegates to `skills/ds-producer/SKILL.md` workflows.
 
 ## Maturity Detection
 
@@ -14,7 +14,7 @@ Follow `skills/shared/maturity-detection.md`. Run detection before routing.
 - **L0 (Greenfield):** Scaffold a new DS from scratch. Requires DESIGN.md as input. If none exists, redirect: "Run /creative first to establish a design language, then /map-design to generate DESIGN.md."
 - **L1 (DESIGN.md exists):** Scaffold a DS using DESIGN.md tokens as the source of truth. Token Architect reads DESIGN.md and formalizes it.
 - **L2 (DS exists):** Extend the existing DS. Load `.ds-context.md` for library keys and token collections before acting.
-- **L3 (Tone/Enterprise):** Delegate to `skills/ds-producer/SKILL.md`. Use the sub-agents below only for exploration/planning; final execution goes through ds-producer workflows.
+- **L3 (Enterprise DS):** Delegate to `skills/ds-producer/SKILL.md`. Load `.ds-context.md` for all DS configuration. Use the sub-agents below only for exploration/planning; final execution goes through ds-producer workflows.
 
 Always announce the detected level before routing.
 
@@ -42,7 +42,7 @@ If the request spans multiple areas (e.g., "new component + version bump"), run 
 
 **Optional L3 query:** `Grep pattern="<keyword>" path="skills/shared/data/design-principles.csv"` for principle backing on naming or structural decisions.
 
-**L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component / Foundation)** for token creation within Tone, or **Workflow 2 (Update Existing Component)** for token amendments. Use this sub-agent for planning and naming only.
+**L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component / Foundation)** for token creation within the enterprise DS, or **Workflow 2 (Update Existing Component)** for token amendments. Use this sub-agent for planning and naming only.
 
 ### Ask first
 
@@ -88,7 +88,7 @@ Flag any anti-patterns detected. Offer to pass to Component Builder if this is p
 
 **Optional L3 query:** `Grep pattern="<component type>" path="skills/shared/data/design-principles.csv"` for relevant composition or API principles.
 
-**L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component)** for building in Tone, or **Workflow 2 (Update Existing Component)** for modifications. Use this sub-agent for design API planning only.
+**L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component)** for building within the enterprise DS, or **Workflow 2 (Update Existing Component)** for modifications. Use this sub-agent for design API planning only.
 
 ### Ask first
 
@@ -161,7 +161,7 @@ Offer to pass to Version Advisor if this is an update with semver implications.
    - Phase 1: Mark deprecated in the library (annotation + deprecation flag)
    - Phase 2: Notify all consuming teams with migration guide
    - Phase 3: Remove from library after confirmed migration (or agreed sunset date)
-5. **Verification**: After removal, plan a Tone Lint (L3) or governance checklist run (L2) across affected files to confirm clean removal.
+5. **Verification**: After removal, plan a DS lint (L3, using the configured lint tool) or governance checklist run (L2) across affected files to confirm clean removal.
 6. Output the full deprecation plan.
 
 ### Output format
