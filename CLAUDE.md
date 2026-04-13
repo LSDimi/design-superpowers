@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. See full spec at `docs/superpowers/specs/2026-04-09-universal-design-plugin-design.md`.
+Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. See spec at `docs/superpowers/specs/2026-04-13-pluginos-integration-and-tone-decoupling.md`.
 
 **Commands:**
 - **`/creative`** (`skills/creative/SKILL.md`) — Visual direction, moodboards, palettes, typography, layout systems
