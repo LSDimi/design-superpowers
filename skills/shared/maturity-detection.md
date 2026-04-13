@@ -1,43 +1,48 @@
-# Maturity Level Detection
+# Maturity Detection
 
-> Shared helper referenced by every command SKILL.md. Detects which of 4 project maturity levels applies and adapts behavior accordingly.
+> Loaded by every command router before routing to sub-agents. Determines project maturity level (L0–L3) which controls sub-agent behavior.
 
-## Levels
+## Detection procedure
 
-| Level | Name | Signals |
-|-------|------|---------|
-| L0 | Greenfield | No DESIGN.md, no .ds-context.md, no Figma library keys in repo |
-| L1 | Design Language Defined | DESIGN.md exists at project root; no DS library |
-| L2 | Has Design System | .ds-context.md exists with Figma library keys |
-| L3 | Enterprise DS | .ds-context.md names Tone OR `enterprise: true` flag present |
+Run these checks in order. Stop at the first match:
 
-## Detection Workflow
+1. Check if `.ds-context.md` exists at the project root.
+2. If it exists: Read the YAML frontmatter.
+   - If `ds.maturity` is `enterprise` OR `governance.tier` is `enterprise` → **L3 Enterprise DS**
+   - Otherwise → **L2 Has design system**
+3. If `.ds-context.md` does not exist: Check if `DESIGN.md` exists at the project root.
+   - If `DESIGN.md` exists → **L1 Design language defined**
+   - If neither exists → **L0 Greenfield**
 
-1. Check for `DESIGN.md` at project root — `Glob pattern="DESIGN.md"`
-2. Check for `.ds-context.md` at project root — `Glob pattern=".ds-context.md"`
-3. If `.ds-context.md` exists: Read it and look for `enterprise: true` or `name: Tone`
-4. Return the highest matched level
+## Announce
 
-**Tie-break:** `.ds-context.md` always wins over `DESIGN.md` — a project can have both; use the higher level.
+Every command must announce the detected level before proceeding:
 
-## Behavior Adaptation
+> "Detected maturity level: **L2 — Has design system** (`{{ds.name}}`). Adapting behavior accordingly."
+
+At L3, also announce:
+
+> "Enterprise DS detected. ds-producer/ds-consumer specializations are active."
+
+## Behavior adaptation by level
 
 | Level | /creative | /ds-make | /ds-manage | /design | /design-review | /map-design |
 |-------|-----------|----------|------------|---------|----------------|-------------|
-| L0 | Full creative freedom; offer to generate DESIGN.md | Scaffold new DS from scratch; require DESIGN.md first | Block — redirect to /ds-make | Block — require DESIGN.md first | Heuristics + a11y only; no DS compliance | Primary use case — extract to bootstrap DESIGN.md |
-| L1 | Refine existing DESIGN.md; stay within defined language | Scaffold DS from DESIGN.md tokens | Block — redirect to /ds-make | Compose from DESIGN.md primitives | Heuristics + DESIGN.md conformance checks | Enrich existing DESIGN.md |
-| L2 | Refine within DS constraints; propose additions only | Extend existing DS; load .ds-context.md | Full operations available | Full DS-aware composition | All 5 sub-agents active | Extract from DS to refresh DESIGN.md snapshot |
-| L3 | Tone-aware; delegate token proposals to /ds-make | Delegate to ds-producer workflows | Full operations + Tone Lint via Figma MCP | Delegate to ds-consumer | All 5 + Tone Lint DS compliance check | Limited; Tone already has full DS |
+| L0 | Full freedom; no constraints | Scaffold from scratch | Not available (no DS to manage) | Use DESIGN.md or freeform | Visual quality + UX only | Full extraction; generate DESIGN.md |
+| L1 | Refine existing design language | Extend toward a DS | Limited; governance not defined | Use DESIGN.md as constraint | All L0 + DESIGN.md conformance | Refresh DESIGN.md from current state |
+| L2 | DS-constrained exploration | Extend the DS; use .ds-context.md | Full operations with governance.md rules | Full DS-aware composition | All + DS compliance checking | Refresh mode; snapshot DS state |
+| L3 | DS-constrained; flag if exploring outside DS | Delegate to ds-producer workflows | Full operations + lint via configured adapter | Delegate to ds-consumer | All + lint-based DS compliance | Limited; enterprise DS already defined |
 
-## Telling the User
+## User patterns → maturity signals
 
-Always announce the detected level at the start of any command execution:
+| User says... | Likely level |
+|--------------|-------------|
+| "start a design system", "create tokens from scratch" | L0 |
+| "I have a DESIGN.md, extend it" | L1 |
+| "use our component library", "check against our DS" | L2 |
+| "publish to the cascade", "run lint", "generate docs" | L3 |
 
-> "Detected maturity level: **L2** (project has a design system). Adapting behavior accordingly."
+## Project context files
 
-If detection is ambiguous (e.g., `.ds-context.md` exists but has no library keys), default to the lower level and state: "Defaulting to L1 — `.ds-context.md` found but no library keys detected. Run `/ds-make` to configure."
-
-## Project Context Files
-
-- **DESIGN.md** — Human-readable design language definition. Written by /creative and /map-design. Read by /design, /design-review, and /ds-make at L1.
-- **.ds-context.md** — Machine-readable DS metadata. Written by /map-design or manually. Keys: `name`, `version`, `figmaLibraryKey`, `enterprise`. For Tone DS, `skills/shared/tone-ds-context.md` serves as the equivalent L3 context file.
+- **DESIGN.md** — Human-readable design language definition. Generated by `/map-design`, used as constraint by all commands at L1+.
+- **.ds-context.md** — Machine-readable DS metadata: library keys, token collections, governance config, Figma adapter. See `skills/shared/ds-context-schema.md` for the full schema.
