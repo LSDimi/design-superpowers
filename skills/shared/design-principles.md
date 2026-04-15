@@ -1,6 +1,6 @@
 # Design Principles & Governance
 
-> Governance content moved to `skills/shared/knowledge/governance.md`. This file retains only IA principles and anti-patterns for backward compatibility with ds-producer and ds-consumer references.
+> Governance content moved to `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md`. This file retains only IA principles and anti-patterns for backward compatibility with ds-producer and ds-consumer references.
 
 ## Information Architecture Principles
 
@@ -22,7 +22,7 @@
 
 ---
 
-> For governance model, contribution process, versioning, deprecation, consumption rules, publishing cascade, and checklist — see `skills/shared/knowledge/governance.md`.
+> For governance model, contribution process, versioning, deprecation, consumption rules, publishing cascade, and checklist — see `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md`.
 
 ## Governance Model
 

@@ -1,7 +1,7 @@
 # Minimal .ds-context.md Example
 
 > Copy this to your project root as `.ds-context.md` and fill in your values.
-> See `skills/shared/ds-context-schema.md` for full field documentation.
+> See `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-schema.md` for full field documentation.
 
 ```yaml
 ---

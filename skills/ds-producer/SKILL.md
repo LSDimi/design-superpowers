@@ -7,7 +7,7 @@ description: Use when creating, updating, auditing, documenting, versioning, or 
 
 You are a Design System Producer agent. You manage the lifecycle of DS artifacts — tokens, components, patterns, documentation — for the project's enterprise-tier design system.
 
-**Shared context:** See `skills/shared/ds-context-loader.md` for context loading. See `skills/shared/ds-context-schema.md` for field reference.
+**Shared context:** See `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md` for context loading. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-schema.md` for field reference.
 
 ## Relationship to /ds-make
 
@@ -45,7 +45,7 @@ Cross-squad conflicts: Expand first (create variants to cover both needs), then 
 3. Any reference components or patterns to follow?
 
 **Steps:**
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
 1. **Discovery:** Explore the need, research existing solutions in the DS, validate with team. Define Acceptance Criteria and get approval before building.
 2. **Shortcut:** Pick up or create ticket → "In Progress"
 3. **Branch:** Create Figma branch: `[Type]-[Name]-[ShortcutID]-v[Version]`
@@ -66,8 +66,8 @@ Cross-squad conflicts: Expand first (create variants to cover both needs), then 
 2. What's changing? (new variant, bug fix, behavior change, token update)
 
 **Steps:**
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
-1. **Inspect:** Fetch current component via your configured Figma adapter (see `skills/shared/figma-adapter.md`) — understand current API surface
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+1. **Inspect:** Fetch current component via your configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) — understand current API surface
 2. **Shortcut:** Pick up ticket → "In Progress"
 3. **Branch:** Create branch from current version
 4. **Modify:** Apply changes following structure and property rules
@@ -86,8 +86,8 @@ Cross-squad conflicts: Expand first (create variants to cover both needs), then 
 
 **No questions needed — run on provided artifact.**
 
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
-1. **Fetch:** Get component/pattern via your configured Figma adapter (see `skills/shared/figma-adapter.md`)
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+1. **Fetch:** Get component/pattern via your configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`)
 2. **Checklist:** Run full governance checklist — pass/fail per item, expand only on failures
 3. **Structure audit:** Unnecessary nesting, hidden objects, resize behavior
 4. **Token compliance:** Verify all tokens from the foundations library (`{{figma.libraries[role=tokens]}}`)
@@ -97,9 +97,9 @@ Cross-squad conflicts: Expand first (create variants to cover both needs), then 
 
 ### 4. Documentation Generation
 
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
 1. Identify component(s) to document
-2. Fetch via your configured Figma adapter (see `skills/shared/figma-adapter.md`)
+2. Fetch via your configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`)
 3. Generate uSpec docs (choose from: API spec, color annotation, structure spec, screen reader spec, motion spec, anatomy, component properties)
 4. Review output with user
 5. Apply to Demo area
@@ -115,7 +115,7 @@ Publishing is a controlled cascade. Changes propagate upward through dependent a
 **Cascade order:** Follow `{{governance.cascade}}` order (typically: Foundations → Components → Patterns (L1) → Squad Patterns (L2) → Final files)
 
 **Steps:**
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
 
 **Per cascade level:**
 1. Publish the updated artifact
@@ -135,7 +135,7 @@ Publishing is a controlled cascade. Changes propagate upward through dependent a
 
 ### 6. Deprecation
 
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
 1. **Analyze:** Run analytics to assess current usage (per Squad + global)
 2. **Plan:** Identify all files, patterns, and dependencies that reference the component
 3. **Remove references:** Clean up from related files and patterns
@@ -147,7 +147,7 @@ Publishing is a controlled cascade. Changes propagate upward through dependent a
 
 When DS Consumer flags a component gap or suggests an update:
 
-0. **Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
+0. **Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `governance.lint.tool`, `governance.lint.command`, `governance.docs.tool`, `figma.libraries`, `tokens.collections`, and `governance.versioning`.
 1. **Receive:** Incoming request with context (what, why, which product area)
 2. **Triage:** Assess feasibility, urgency, overlap with existing components
 3. **Prioritize:** Add to backlog with severity/priority
@@ -167,11 +167,11 @@ When DS Consumer flags a component gap or suggests an update:
 
 **For the team:** Run DS lint natively in Figma — zero AI token cost. The plugin writes results to pluginData automatically after each scan.
 
-**For agents:** Read lint/audit results via your configured Figma adapter (see `skills/shared/figma-adapter.md`) (~50 tokens per read):
+**For agents:** Read lint/audit results via your configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) (~50 tokens per read):
 - Lint: `pluginData read — namespace: {{governance.lint.namespace}}, key: "lint_results"`
 - Audit: `pluginData read — namespace: {{governance.lint.namespace}}, key: "audit_results"`
 
-**For targeted fixes:** Apply individual fixes via your configured Figma adapter (see `skills/shared/figma-adapter.md`) (~500 tokens):
+**For targeted fixes:** Apply individual fixes via your configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) (~500 tokens):
 - Variable binding: Import variable by key, bind to node property
 - Text style: Import style by key, apply to text node
 - Reattach: Import component by key, create instance, copy text, replace detached node

@@ -9,19 +9,19 @@ Router for design review sub-agents. Runs heuristic evaluation, accessibility au
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 - **L0 (Greenfield):** Run UX Critic, A11y Auditor, Visual Quality Inspector, and Motion Reviewer (if motion present). No DS Compliance Checker — no DS to check against.
 - **L1 (DESIGN.md exists):** All L0 sub-agents plus DESIGN.md conformance checking within UX Critic and Visual Quality Inspector.
 - **L2 (DS exists):** All 5 sub-agents active. DS Compliance Checker runs manual governance checklist from `governance.md`.
-- **L3 (Enterprise DS):** All 5 sub-agents + DS Compliance Checker integrates DS lint via the configured Figma adapter (see `skills/shared/figma-adapter.md`) for automated compliance data.
+- **L3 (Enterprise DS):** All 5 sub-agents + DS Compliance Checker integrates DS lint via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) for automated compliance data.
 
 Always announce the detected level before running.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/ux-heuristics.md` (L2 — evaluation framework and severity rubric)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/ux-heuristics.md` (L2 — evaluation framework and severity rubric)
 
 ## Multi-Sub-Agent Execution
 
@@ -86,9 +86,9 @@ After all sub-agents complete, produce:
 
 ## Sub-Agent: Visual Quality Inspector
 
-**Load additionally:** `skills/shared/knowledge/visual-quality.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/visual-quality.md`
 
-**Optional L3 query:** `Grep pattern="align\|spacing\|visual" path="skills/shared/data/design-principles.csv"` for principle backing on specific findings.
+**Optional L3 query:** `Grep pattern="align\|spacing\|visual" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for principle backing on specific findings.
 
 ### Ask first
 
@@ -129,7 +129,7 @@ After all sub-agents complete, produce:
 
 **Load additionally:** None — `ux-heuristics.md` is already loaded.
 
-**Optional L3 query:** `Grep pattern="<specific concern keyword>" path="skills/shared/data/psychological-principles.csv"` for cognitive or perceptual principle backing on specific findings.
+**Optional L3 query:** `Grep pattern="<specific concern keyword>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/psychological-principles.csv"` for cognitive or perceptual principle backing on specific findings.
 
 ### Ask first
 
@@ -175,9 +175,9 @@ After all sub-agents complete, produce:
 
 ## Sub-Agent: A11y Auditor
 
-**Load additionally:** `skills/shared/knowledge/accessibility.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/accessibility.md`
 
-**Optional L3 query:** `Grep pattern="form\|touch\|contrast" path="skills/shared/data/ecommerce-usability.csv"` for domain-specific accessibility anchors.
+**Optional L3 query:** `Grep pattern="form\|touch\|contrast" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/ecommerce-usability.csv"` for domain-specific accessibility anchors.
 
 ### Ask first
 
@@ -218,11 +218,11 @@ After all sub-agents complete, produce:
 
 ## Sub-Agent: DS Compliance Checker
 
-**Load additionally:** `skills/shared/knowledge/governance.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md`
 
 **Optional L3 query:** Not applicable — compliance is checked against DS governance rules, not CSVs.
 
-**L3 note:** At L3, this sub-agent reads DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`) before running the manual checklist.
+**L3 note:** At L3, this sub-agent reads DS lint results via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) before running the manual checklist.
 
 ### Ask first
 
@@ -233,7 +233,7 @@ After all sub-agents complete, produce:
 
 **At L3 (Enterprise DS):**
 
-1. Read DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})`.
+1. Read DS lint results via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})`.
    Parse the returned results for: `unbound_variables`, `detached_components`, `override_violations`, `naming_issues`.
 2. Supplement with the manual checklist below for any areas DS lint does not cover.
 
@@ -266,7 +266,7 @@ After all sub-agents complete, produce:
 
 ## Sub-Agent: Motion Reviewer
 
-**Load additionally:** `skills/shared/knowledge/motion.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/motion.md`
 
 **Optional L3 query:** Not applicable for motion review.
 

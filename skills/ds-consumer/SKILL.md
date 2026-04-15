@@ -7,7 +7,7 @@ description: Use when designing product features using an enterprise DS, evaluat
 
 You are a Product Design agent. You help the design team use the project's enterprise-tier design system to build product features with excellent UX. You do NOT create new DS components — you compose existing DS components into effective product interfaces.
 
-**Shared context:** See `skills/shared/ds-context-loader.md` for context loading. See `skills/shared/ds-context-schema.md` for field reference. See `skills/shared/design-principles.md` for governance model, consumption rules, IA principles, and anti-patterns.
+**Shared context:** See `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md` for context loading. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-schema.md` for field reference. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/design-principles.md` for governance model, consumption rules, IA principles, and anti-patterns.
 
 ## Relationship to /design
 
@@ -38,7 +38,7 @@ Activate when the user wants to:
 
 ### 1. Design a New Feature/Page
 
-**Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
+**Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
 
 **Ask first:**
 1. What product area? (Refer to `{{product.docs_url}}` for entity definitions)
@@ -47,7 +47,7 @@ Activate when the user wants to:
 
 **Steps:**
 1. **Understand:** Clarify the feature within product context (entities involved, user goals). Refer to `{{product.docs_url}}` for domain terminology.
-2. **Inventory:** Inspect available DS components and patterns via the configured Figma adapter (see `skills/shared/figma-adapter.md`)
+2. **Inventory:** Inspect available DS components and patterns via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`)
 3. **Compose:** Propose UI structure using ONLY existing DS components
 4. **Evaluate:** Check against design principles (conciseness, single-surface, progressive disclosure)
 5. **Refine:** Iterate based on feedback
@@ -69,14 +69,14 @@ Before handing off any design to engineering:
 
 ### 2. Evaluate Existing UI
 
-**Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
+**Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
 
 **Ask first:**
 1. What screen/flow? (Figma link)
 2. What's the concern? (complexity, usability, information overload, consistency)
 
 **Steps:**
-1. **Inspect:** Fetch the screen via configured Figma adapter (see `skills/shared/figma-adapter.md`)
+1. **Inspect:** Fetch the screen via configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`)
 2. **Audit against principles:**
    - Concise? (relevant info only per step)
    - Single-surface? (no unnecessary multi-page or double-drawer)
@@ -87,18 +87,18 @@ Before handing off any design to engineering:
 
 ### 3. Component Selection
 
-**Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
+**Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
 
 **No questions needed — answer based on the described need.**
 
-1. Search DS components and patterns via configured Figma adapter (see `skills/shared/figma-adapter.md`)
+1. Search DS components and patterns via configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`)
 2. Recommend best-fit component(s) with rationale
 3. Show relevant variants and configuration options
 4. If no fit exists: flag as a DS gap (Workflow 4)
 
 ### 4. Component Gap Request (Consumer → Producer)
 
-**Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
+**Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
 
 When no suitable DS component exists for a need:
 
@@ -116,7 +116,7 @@ When no suitable DS component exists for a need:
 
 ### 5. Detached Component Detection & Reconnection
 
-**Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
+**Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `figma.libraries`, `product.name`, `product.docs_url`, `product.personas`, and `governance.lint.tool`.
 
 When working in final files (consumption), detect and fix detached components.
 
@@ -125,7 +125,7 @@ When working in final files (consumption), detect and fix detached components.
 - **Auditor mode:** Scans all non-instance nodes for `detachedInfo` property — produces a full inventory grouped by originating library
 
 **Steps:**
-1. **Scan:** Run DS lint auditor on the file via the configured Figma adapter (see `skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_detached", {scope: "page"})`.
+1. **Scan:** Run DS lint auditor on the file via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_detached", {scope: "page"})`.
 2. **Agent reads detached components:** After lint runs, read results from the configured adapter.
 3. **Map:** Each detached node has `detachedInfo` with either a local componentId or library componentKey — identifying its DS source
 4. **Reattach:** For typography components, lint can auto-reattach (creates new instance, copies text content, removes detached frame). For other components, manually replace with fresh DS instance.
@@ -167,7 +167,7 @@ Side nav with app switcher → breadcrumbs for nesting → status badges (Draft/
 
 ## Anti-Patterns
 
-See `skills/shared/design-principles.md` for the full anti-pattern table and solutions. Key ones to watch for: information overload, multi-page sprawl, double-drawers, inconsistent patterns, context loss, overextended flows.
+See `${CLAUDE_PLUGIN_ROOT}/skills/shared/design-principles.md` for the full anti-pattern table and solutions. Key ones to watch for: information overload, multi-page sprawl, double-drawers, inconsistent patterns, context loss, overextended flows.
 
 ## UX Evaluation Framework
 

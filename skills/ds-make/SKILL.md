@@ -5,23 +5,23 @@ description: Use when creating, updating, versioning, or deprecating design syst
 
 # /ds-make — DS Creation & Lifecycle
 
-Router for DS creation and lifecycle sub-agents. At L3 (Enterprise), delegates to `skills/ds-producer/SKILL.md` workflows.
+Router for DS creation and lifecycle sub-agents. At L3 (Enterprise), delegates to `${CLAUDE_PLUGIN_ROOT}/skills/ds-producer/SKILL.md` workflows.
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 - **L0 (Greenfield):** Scaffold a new DS from scratch. Requires DESIGN.md as input. If none exists, redirect: "Run /creative first to establish a design language, then /map-design to generate DESIGN.md."
 - **L1 (DESIGN.md exists):** Scaffold a DS using DESIGN.md tokens as the source of truth. Token Architect reads DESIGN.md and formalizes it.
 - **L2 (DS exists):** Extend the existing DS. Load `.ds-context.md` for library keys and token collections before acting.
-- **L3 (Enterprise DS):** Delegate to `skills/ds-producer/SKILL.md`. Load `.ds-context.md` for all DS configuration. Use the sub-agents below only for exploration/planning; final execution goes through ds-producer workflows.
+- **L3 (Enterprise DS):** Delegate to `${CLAUDE_PLUGIN_ROOT}/skills/ds-producer/SKILL.md`. Load `.ds-context.md` for all DS configuration. Use the sub-agents below only for exploration/planning; final execution goes through ds-producer workflows.
 
 Always announce the detected level before routing.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/governance.md` (L2 — always for DS work)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md` (L2 — always for DS work)
 
 ## Sub-Agent Router
 
@@ -38,9 +38,9 @@ If the request spans multiple areas (e.g., "new component + version bump"), run 
 
 ## Sub-Agent: Token Architect
 
-**Load additionally:** `skills/shared/knowledge/token-architecture.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/token-architecture.md`
 
-**Optional L3 query:** `Grep pattern="<keyword>" path="skills/shared/data/design-principles.csv"` for principle backing on naming or structural decisions.
+**Optional L3 query:** `Grep pattern="<keyword>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for principle backing on naming or structural decisions.
 
 **L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component / Foundation)** for token creation within the enterprise DS, or **Workflow 2 (Update Existing Component)** for token amendments. Use this sub-agent for planning and naming only.
 
@@ -84,9 +84,9 @@ Flag any anti-patterns detected. Offer to pass to Component Builder if this is p
 
 ## Sub-Agent: Component Builder
 
-**Load additionally:** `skills/shared/knowledge/component-patterns.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/component-patterns.md`
 
-**Optional L3 query:** `Grep pattern="<component type>" path="skills/shared/data/design-principles.csv"` for relevant composition or API principles.
+**Optional L3 query:** `Grep pattern="<component type>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for relevant composition or API principles.
 
 **L3 delegation:** If maturity is L3, delegate to **ds-producer Workflow 1 (New Component)** for building within the enterprise DS, or **Workflow 2 (Update Existing Component)** for modifications. Use this sub-agent for design API planning only.
 

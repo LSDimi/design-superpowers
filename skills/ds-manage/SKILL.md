@@ -9,21 +9,21 @@ Router for ongoing design system management. Handles publishing, analytics, docu
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 **Manage commands require L2 at minimum** — a design system must exist. At L0 or L1, politely redirect:
 
 > "DS manage operations require an existing design system (L2+). It looks like this project doesn't have one yet. Run `/ds-make` to create one, or `/creative` → `/map-design` to establish a design language first."
 
 - **L2 (DS exists):** Full operations available using governance.md rules and manual checklists.
-- **L3 (Enterprise DS):** Full operations + DS lint integration via configured Figma adapter (see `skills/shared/figma-adapter.md`) for Publisher and Health Monitor. Library analytics available for Analytics Reporter.
+- **L3 (Enterprise DS):** Full operations + DS lint integration via configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`) for Publisher and Health Monitor. Library analytics available for Analytics Reporter.
 
 Always announce the detected level before routing.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/governance.md` (L2 — always for manage operations)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md` (L2 — always for manage operations)
 
 ## Sub-Agent Router
 
@@ -56,7 +56,7 @@ Two common multi-sub-agent chains:
 
 **Load additionally:** None — `governance.md` (already loaded) contains the full publishing cascade rules.
 
-**At L3:** Use the configured Figma adapter to run DS lint before publishing (see `skills/shared/figma-adapter.md`). Lint violations are blocking — do not proceed until resolved.
+**At L3:** Use the configured Figma adapter to run DS lint before publishing (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`). Lint violations are blocking — do not proceed until resolved.
 
 ### Ask first
 
@@ -167,7 +167,7 @@ Overall adoption: X%  (↑/↓ from last period: Y%)
 
 ## Sub-Agent: Documentation Generator
 
-**Load additionally:** `skills/shared/knowledge/documentation.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/documentation.md`
 
 **Optional L3 query:** Not applicable for documentation generation.
 
@@ -223,7 +223,7 @@ Documentation output follows uSpec format from `documentation.md`. Deliver as st
 
 **Load additionally:** None — `governance.md` (already loaded) contains the governance checklist and cascade rules.
 
-**At L3:** Read DS lint results via the configured Figma adapter (see `skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})` for a full inventory of lint violations, detached components, and naming issues.
+**At L3:** Read DS lint results via the configured Figma adapter (see `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`). If using PluginOS, call `run_operation("lint_styles", {scope: "page"})`, `run_operation("lint_detached", {scope: "page"})`, and `run_operation("lint_naming", {scope: "page"})` for a full inventory of lint violations, detached components, and naming issues.
 
 **At L2:** Run governance checklist manually using rules from `governance.md`. Ask user to provide screen exports or Figma links for inspection.
 
@@ -238,7 +238,7 @@ Documentation output follows uSpec format from `documentation.md`. Deliver as st
 1. **L3 path**:
    - Read lint results via configured Figma adapter (PluginOS: `run_operation("lint_styles")` + `run_operation("lint_detached")`)
    - Read audit results via configured Figma adapter (PluginOS: `run_operation("lint_naming")`)
-   - Parse results: group violations by rule type (fill, stroke, spacing, textStyle, instanceOverride, naming — see `skills/ds-producer/SKILL.md` for full rule table).
+   - Parse results: group violations by rule type (fill, stroke, spacing, textStyle, instanceOverride, naming — see `${CLAUDE_PLUGIN_ROOT}/skills/ds-producer/SKILL.md` for full rule table).
    - Classify each finding by severity: P0 (lint violation blocking publish), P1 (deviation from governance), P2 (minor inconsistency), P3 (cosmetic/naming).
 
 2. **L2 path**:

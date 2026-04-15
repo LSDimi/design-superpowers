@@ -9,7 +9,7 @@ Router for creative-direction sub-agents. Use when no design language exists yet
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 - **L0 (Greenfield):** Full creative freedom — all options open. Output feeds into DESIGN.md via /map-design after exploration.
 - **L1 (DESIGN.md exists):** Refine the existing design language. Load DESIGN.md as a constraint. Propose additions that extend it coherently.
@@ -20,8 +20,8 @@ Always announce the detected level before proceeding.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/creative-direction.md` (L2 — creative domain)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/creative-direction.md` (L2 — creative domain)
 
 ## Sub-Agent Router
 
@@ -42,7 +42,7 @@ If the request is unclear, ask: "Which aspect do you want to explore — mood/th
 
 **Load additionally:** None — `creative-direction.md` already covers the moodboard method.
 
-**Optional L3 query:** `Grep pattern="<emotion keyword>" path="skills/shared/data/psychological-principles.csv"` for emotional association backing.
+**Optional L3 query:** `Grep pattern="<emotion keyword>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/psychological-principles.csv"` for emotional association backing.
 
 ### Ask first
 
@@ -75,9 +75,9 @@ Theme table + next-step prompt. No narrative paragraphs. Keep the table scannabl
 
 ## Sub-Agent: Palette Architect
 
-**Load additionally:** `skills/shared/knowledge/color-theory.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/color-theory.md`
 
-**Optional L3 query:** `Grep pattern="color" path="skills/shared/data/psychological-principles.csv"` for color-psychology backing on key choices.
+**Optional L3 query:** `Grep pattern="color" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/psychological-principles.csv"` for color-psychology backing on key choices.
 
 ### Ask first
 
@@ -120,9 +120,9 @@ Offer to hand off to Typography Director or token-naming via /ds-make.
 
 ## Sub-Agent: Typography Director
 
-**Load additionally:** `skills/shared/knowledge/typography.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/typography.md`
 
-**Optional L3 query:** `Grep pattern="readab" path="skills/shared/data/psychological-principles.csv"` for cognitive load references.
+**Optional L3 query:** `Grep pattern="readab" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/psychological-principles.csv"` for cognitive load references.
 
 ### Ask first
 
@@ -161,9 +161,9 @@ Offer to feed into Layout Strategist or /ds-make Token Architect next.
 
 ## Sub-Agent: Layout Strategist
 
-**Load additionally:** `skills/shared/knowledge/layout.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/layout.md`
 
-**Optional L3 query:** `Grep pattern="navigation\|grid\|spacing" path="skills/shared/data/usability-homepage.csv"` for layout usability anchors.
+**Optional L3 query:** `Grep pattern="navigation\|grid\|spacing" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/usability-homepage.csv"` for layout usability anchors.
 
 ### Ask first
 

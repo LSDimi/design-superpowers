@@ -125,10 +125,10 @@
 
 When you need a deeper reference during evaluation, query these CSVs with Grep:
 
-- `skills/shared/data/psychological-principles.csv` — cognitive + perceptual principles
-- `skills/shared/data/ecommerce-usability.csv` — forms, checkout, search patterns
-- `skills/shared/data/usability-homepage.csv` — homepage, nav, filtering patterns
-- `skills/shared/data/design-principles.csv` — classic design frameworks
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/data/psychological-principles.csv` — cognitive + perceptual principles
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/data/ecommerce-usability.csv` — forms, checkout, search patterns
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/data/usability-homepage.csv` — homepage, nav, filtering patterns
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv` — classic design frameworks
 
-**Query pattern:** `Grep pattern="<keyword>" path="skills/shared/data/<file>.csv"`
+**Query pattern:** `Grep pattern="<keyword>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/<file>.csv"`
 **Use sparingly:** Query only when a specific finding needs backing, not speculatively.

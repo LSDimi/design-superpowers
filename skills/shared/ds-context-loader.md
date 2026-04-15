@@ -13,7 +13,7 @@ Read and validate `.ds-context.md` from the project root. Extract structured fie
 Read `.ds-context.md` from the project root (same directory as `DESIGN.md` or `CLAUDE.md`).
 
 **If missing:** Stop. Tell the user:
-> "This workflow requires a `.ds-context.md` file at the project root. Run `/ds-make` to scaffold your DS and create this file, or create one manually using the schema in `skills/shared/ds-context-schema.md`."
+> "This workflow requires a `.ds-context.md` file at the project root. Run `/ds-make` to scaffold your DS and create this file, or create one manually using the schema in `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-schema.md`."
 
 ### Step 2: Parse frontmatter
 
@@ -48,7 +48,7 @@ Extract the YAML frontmatter between `---` delimiters. Parse into structured fie
 Read `figma.adapter`:
 - If `pluginos` → use PluginOS tools for any Figma operations in this workflow
 - If `figma-mcp` → use classic Figma MCP tools
-- If unset → follow the pitch flow in `skills/shared/figma-adapter.md`
+- If unset → follow the pitch flow in `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md`
 
 ### Step 6: Return context object
 
@@ -71,6 +71,6 @@ Plus any free-form prose from the body section as `ds.notes`.
 
 Every ds-producer and ds-consumer workflow begins with:
 
-> **Step 0 — Load context:** Follow `skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `figma.libraries`, and any other fields this workflow needs. If context is missing or invalid, stop and guide the user.
+> **Step 0 — Load context:** Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/ds-context-loader.md`. Extract `ds.name`, `governance.cascade`, `figma.libraries`, and any other fields this workflow needs. If context is missing or invalid, stop and guide the user.
 
 Individual workflows then reference specific context values like `{{ds.name}}`, `{{governance.cascade}}`, `{{governance.lint.command}}` etc. These are not literal template variables — they mean "use the value you loaded in Step 0."

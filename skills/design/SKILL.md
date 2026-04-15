@@ -5,24 +5,24 @@ description: Use when designing product features, flows, pages, or screens using
 
 # /design — Product Design with DS
 
-Router for product design sub-agents. Composes interfaces from existing DS components and patterns. At L3 (Enterprise), delegates to `skills/ds-consumer/SKILL.md`.
+Router for product design sub-agents. Composes interfaces from existing DS components and patterns. At L3 (Enterprise), delegates to `${CLAUDE_PLUGIN_ROOT}/skills/ds-consumer/SKILL.md`.
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 - **L0 (Greenfield):** Block. A design language must exist before composing. Redirect: "Run /creative to establish a visual direction, then /map-design to generate DESIGN.md."
 - **L1 (DESIGN.md exists):** Compose using DESIGN.md primitives (colors, type scale, spacing). No DS library to reference — work from documented values only.
 - **L2 (DS exists):** Full DS-aware composition. Load `.ds-context.md` for library keys. Select from available components; flag gaps via Gap Detector.
-- **L3 (Enterprise DS):** Delegate to `skills/ds-consumer/SKILL.md`. Sub-agents below are available for exploration and planning; final design execution goes through ds-consumer workflows.
+- **L3 (Enterprise DS):** Delegate to `${CLAUDE_PLUGIN_ROOT}/skills/ds-consumer/SKILL.md`. Sub-agents below are available for exploration and planning; final design execution goes through ds-consumer workflows.
 
 Always announce the detected level before routing.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/component-patterns.md` (L2 — component selection)
-- `skills/shared/knowledge/ux-heuristics.md` (L2 — evaluate compositions)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/component-patterns.md` (L2 — component selection)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/ux-heuristics.md` (L2 — evaluate compositions)
 
 ## Hard Rules (all maturity levels)
 
@@ -48,7 +48,7 @@ If the request spans multiple (e.g., "compose this page and flag any gaps"), run
 
 **Load additionally:** None — `component-patterns.md` already covers component API, hierarchy, and variant strategies.
 
-**Optional L3 query:** `Grep pattern="<component type>" path="skills/shared/data/design-principles.csv"` for principle backing on composition decisions.
+**Optional L3 query:** `Grep pattern="<component type>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for principle backing on composition decisions.
 
 **L3 delegation:** If maturity is L3, delegate to **ds-consumer Workflow 3 (Component Selection)**. Use this sub-agent for exploration at L0/L1/L2.
 
@@ -92,9 +92,9 @@ If no fit exists: "No suitable component found. Routing to Gap Detector."
 
 ## Sub-Agent: Layout Composer
 
-**Load additionally:** `skills/shared/knowledge/layout.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/layout.md`
 
-**Optional L3 query:** `Grep pattern="navigation\|page\|grid" path="skills/shared/data/usability-homepage.csv"` for layout usability anchors relevant to the page type.
+**Optional L3 query:** `Grep pattern="navigation\|page\|grid" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/usability-homepage.csv"` for layout usability anchors relevant to the page type.
 
 **L3 delegation:** If maturity is L3, delegate to **ds-consumer Workflow 1 (Design a New Feature/Page)**. Use this sub-agent for layout planning at L0/L1/L2.
 
@@ -152,7 +152,7 @@ Offer to pass to Gap Detector if any zone lacks a component fit.
 
 **Load additionally:** None — `component-patterns.md` covers composition hierarchy including Patterns and Templates.
 
-**Optional L3 query:** `Grep pattern="<flow type>" path="skills/shared/data/ecommerce-usability.csv"` or `usability-homepage.csv` for domain-specific pattern precedent.
+**Optional L3 query:** `Grep pattern="<flow type>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/ecommerce-usability.csv"` or `usability-homepage.csv` for domain-specific pattern precedent.
 
 **L3 delegation:** If maturity is L3, consult **ds-consumer Workflow 1 step "Inventory"** for DS patterns (from `{{figma.libraries[role=patterns]}}`) and squad patterns lookup via the configured Figma adapter.
 
@@ -192,7 +192,7 @@ Offer to pass to Gap Detector if any zone lacks a component fit.
 
 ## Sub-Agent: Gap Detector
 
-**Load additionally:** `skills/shared/knowledge/governance.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/governance.md`
 
 **Optional L3 query:** Not applicable — gap requests follow governance process, not CSV lookups.
 

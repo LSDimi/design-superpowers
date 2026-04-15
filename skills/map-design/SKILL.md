@@ -9,7 +9,7 @@ Router for design extraction sub-agents. Crawls existing designs — screenshots
 
 ## Maturity Detection
 
-Follow `skills/shared/maturity-detection.md`. Run detection before routing.
+Follow `${CLAUDE_PLUGIN_ROOT}/skills/shared/maturity-detection.md`. Run detection before routing.
 
 - **L0 (Greenfield):** Primary use case. Extract from reference artifacts or screenshots to bootstrap a `DESIGN.md` from scratch. No constraints — extract freely.
 - **L1 (DESIGN.md exists):** Enrich mode. Read the existing `DESIGN.md` first, then extract from the new artifact, and propose additions or corrections to each section.
@@ -20,8 +20,8 @@ Always announce the detected level before routing.
 
 ## Always Load
 
-- `skills/shared/knowledge/core-principles.md` (L1 — always)
-- `skills/shared/knowledge/design-md-schema.md` (L2 — DESIGN.md structure and field guide)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/core-principles.md` (L1 — always)
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/design-md-schema.md` (L2 — DESIGN.md structure and field guide)
 
 ## Execution Chain
 
@@ -53,7 +53,7 @@ If the user provides an artifact and asks for a `DESIGN.md`, run the full chain 
 
 ## Sub-Agent: Visual Parser
 
-**Load additionally:** `skills/shared/knowledge/visual-quality.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/visual-quality.md`
 
 **Optional L3 query:** Not applicable at this stage — this is an observational pass.
 
@@ -130,11 +130,11 @@ Pass this output to Token Extractor.
 ## Sub-Agent: Token Extractor
 
 **Load additionally:**
-- `skills/shared/knowledge/token-architecture.md`
-- `skills/shared/knowledge/color-theory.md`
-- `skills/shared/knowledge/typography.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/token-architecture.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/color-theory.md`
+- `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/typography.md`
 
-**Optional L3 query:** `Grep pattern="token\|variable\|naming" path="skills/shared/data/design-principles.csv"` for naming convention backing.
+**Optional L3 query:** `Grep pattern="token\|variable\|naming" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for naming convention backing.
 
 ### Ask first
 
@@ -217,9 +217,9 @@ Pass this output to Component Cataloger.
 
 ## Sub-Agent: Component Cataloger
 
-**Load additionally:** `skills/shared/knowledge/component-patterns.md`
+**Load additionally:** `${CLAUDE_PLUGIN_ROOT}/skills/shared/knowledge/component-patterns.md`
 
-**Optional L3 query:** `Grep pattern="<component keyword>" path="skills/shared/data/design-principles.csv"` for composition or hierarchy principle anchors.
+**Optional L3 query:** `Grep pattern="<component keyword>" path="${CLAUDE_PLUGIN_ROOT}/skills/shared/data/design-principles.csv"` for composition or hierarchy principle anchors.
 
 ### Ask first
 

@@ -33,7 +33,7 @@ YAML frontmatter for structured fields. Optional prose body for free-form notes.
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `figma.adapter` | enum | no | unset | `pluginos`, `figma-mcp`, or unset. See `skills/shared/figma-adapter.md` for detection flow. |
+| `figma.adapter` | enum | no | unset | `pluginos`, `figma-mcp`, or unset. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md` for detection flow. |
 | `figma.status` | enum | no | unset | `ready`, `pending-setup`, or unset. |
 | `figma.libraries` | array | no | `[]` | Figma library entries. Each has `name`, `key`, and `role`. |
 
