@@ -1,6 +1,37 @@
+---
+aliases:
+- design-superpowers
+- universal-design-plugin
+links:
+- 2026-03-06-guidelines-and-mapping
+- 2026-04-13-pluginos-integration-and-tone-decoupling
+- 2026-04-17-vault-governance-implementation
+- 2026 Goals
+- CLAUDE
+- Component_Comparison
+- Component_Usage_Rules
+- Creative_Currencies_in_Promotions_Summary
+- DESIGN.md
+- Eforia_Summary
+- HISTORY
+- Lieferando_Proagogi_Summary
+- Local_LLM_Automation_-_Action_Plain
+- Map_Design
+summary: A 4-layer knowledge system for design teams using six universal Claude Code
+  commands, adapting from greenfield projects to enterprise design systems.
+tags:
+- area/design
+- topic/DesignSystem
+- tool/Claude
+- person/DimitriosArapis
+type: concept
+---
+
 # design-superpowers
 
 Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. Adapts from greenfield projects to enterprise design systems.
+
+![design-superpowers](assets/banner.png)
 
 ## What it does
 
