@@ -77,6 +77,8 @@ Add the `mcpServers` block:
 - PluginOS's MCP tools (`mcp__pluginos__*`) appear in the session's tool list.
 - If the bridge plugin isn't running in Figma Desktop, any Figma-touching tool call returns a clear error — handled by the pitch (Section 6).
 
+**Version pinning: floating (not pinned).** PluginOS is in active development (v0.4.0 is still an open PR as of 2026-04-19). Pinning would require manual bumps on every upstream release and would block bug fixes from reaching users. `npx -y pluginos` resolves to the latest published version at install time. If a bad release ever ships, we pin reactively via a patch release of design-superpowers.
+
 **Version bump rationale:** this is a material behaviour change (auto-installs an MCP server) — bumping from 0.1.0 → 0.2.0 signals that to users and to the validator's lockstep check.
 
 ---
@@ -139,7 +141,9 @@ Followed by `python3 scripts/validate_plugin.py` to confirm nothing broke, then 
 
 ### CI
 
-Add a weekly scheduled GitHub Actions job that runs the sync script and opens a PR if the vendored skill has changed. This keeps design-superpowers tracking PluginOS without requiring manual vigilance.
+Add a weekly scheduled GitHub Actions job that runs the sync script and opens a PR if the vendored skill has changed. **Auto-PR over auto-issue:** a PR is reviewable in one glance, mergeable in one click, and auto-closable if stale; an issue just accrues todo debt. The workflow uses `peter-evans/create-pull-request` (or equivalent) with a fixed branch name (`chore/sync-pluginos`) so reruns update the existing PR rather than spawning duplicates.
+
+The PR title follows the sync commit convention: `chore: sync pluginos-figma skill @ <upstream-sha>`. The body includes a diff summary and a link to the upstream commit range.
 
 ---
 
@@ -155,12 +159,17 @@ The pitch currently assumes PluginOS may or may not be installed. With bundling,
 
 > design-superpowers ships with PluginOS. Your MCP server is already registered.
 >
-> **One remaining step:** import the bridge plugin in Figma Desktop.
+> **One remaining step:** install the bridge plugin in Figma Desktop.
 >
-> - **If PluginOS is on Figma Community** (check `figma.com/community/plugin/<plugin-id>`): click to install.
-> - **If not yet on Community:** in Figma Desktop → Plugins → Development → Import plugin from manifest → paste this manifest URL: `<URL>`.
+> The [PluginOS MCP Bridge](https://www.figma.com/community/plugin/1626608701431483287/pluginos-mcp-bridge-for-llms) is currently under Figma Community review. Until it's published, use dev-import:
 >
-> Once the bridge is running, retry your command.
+> 1. Open Figma Desktop → Plugins → Development → Import plugin from manifest
+> 2. Select the manifest from your PluginOS install (path printed on first run)
+> 3. Run the plugin from Plugins → Development → PluginOS MCP Bridge
+>
+> Once the Community listing goes live, a single click from that URL will replace steps 1–2.
+>
+> Retry your command once the bridge is running.
 
 ### Detection flow
 
@@ -178,12 +187,17 @@ The "figma-mcp" decline path and the "pitch on first Figma action" language in t
 
 ## 7. Figma Community Plugin Handoff
 
-**Open question for the PluginOS side, not this plugin:** is PluginOS v0.4.0 published to Figma Community?
+**Status (as of 2026-04-20):** PluginOS MCP Bridge is submitted to Figma Community and currently under review.
 
-- If **yes**: the pitch shows a Community link. One click, installed.
-- If **no**: the pitch shows manifest import instructions as a fallback, and we file an issue upstream suggesting publication.
+- **Listing URL:** https://www.figma.com/community/plugin/1626608701431483287/pluginos-mcp-bridge-for-llms
+- **Until approved:** dev-import remains the install path (Section 6).
+- **Once approved:** no code change needed. The Community URL is already hardcoded in `figma-adapter.md`; users clicking it get the one-click install automatically.
 
-The `figma-adapter.md` copy should be written to handle both cases gracefully. The Community link is hardcoded as `<TBD — pending confirmation from upstream>` until verified.
+The pitch copy is written to degrade gracefully — it links to the Community page whether or not it's live yet. If a user clicks before approval, Figma shows the "under review" state. That's acceptable friction and better than hiding the link entirely.
+
+### When Community approval lands
+
+A trivial PR to `figma-adapter.md` will update the copy to remove the "under review" hedge. No schema changes, no validator changes, no user migration.
 
 ---
 
@@ -216,8 +230,12 @@ Pre-merge verification:
 
 ---
 
-## 11. Open Questions
+## 11. Resolved Decisions
 
-1. Is PluginOS v0.4.0 published to Figma Community, or is dev-import still the only install path? *(Affects Section 6 pitch copy.)*
-2. Does `npx -y pluginos` work reliably on first call, or do we need to pin a version (`pluginos@0.4.0`)? *(Pinning gives reproducibility; floating gives automatic updates.)*
-3. Should the weekly CI sync job open PRs automatically, or post an issue suggesting sync? *(PR is more actionable; issue is less noisy.)*
+Three questions were open during brainstorming; each is decided here and reflected in the sections above.
+
+| # | Question | Decision | Section |
+|---|---|---|---|
+| 1 | Figma Community status? | Under review as of 2026-04-20; dev-import is the install path until approval. Community URL is already wired into the pitch and will work automatically once the listing goes live. | 6, 7 |
+| 2 | Pin `pluginos` version or float? | Float (`npx -y pluginos`). PluginOS is in active development; pinning would block bug fixes. Pin reactively if a bad release ships. | 3 |
+| 3 | Weekly sync job: PR or issue? | Auto-open PR with fixed branch name so reruns update the same PR. More actionable, less noisy than issues. | 5 |
