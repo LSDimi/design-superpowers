@@ -33,6 +33,33 @@ BARE_SHARED_RE = re.compile(r"(?<!\{CLAUDE_PLUGIN_ROOT\}/)skills/shared/")
 FRONTMATTER_RE = re.compile(r"\A---\n(.*?)\n---", re.DOTALL)
 
 
+def classify_mcp_command(cmd: str) -> str:
+    """Classify an MCP server command string for portability.
+
+    Returns one of: 'absolute', 'plugin-root', 'path-binary', 'relative'.
+
+    >>> classify_mcp_command("/usr/local/bin/node")
+    'absolute'
+    >>> classify_mcp_command("${CLAUDE_PLUGIN_ROOT}/bin/server.sh")
+    'plugin-root'
+    >>> classify_mcp_command("npx")
+    'path-binary'
+    >>> classify_mcp_command("node")
+    'path-binary'
+    >>> classify_mcp_command("./scripts/local.sh")
+    'relative'
+    >>> classify_mcp_command("../other/thing.sh")
+    'relative'
+    """
+    if cmd.startswith("${CLAUDE_PLUGIN_ROOT}"):
+        return "plugin-root"
+    if cmd.startswith("/"):
+        return "absolute"
+    if cmd.startswith("./") or cmd.startswith("../"):
+        return "relative"
+    return "path-binary"
+
+
 def parse_frontmatter(text: str) -> dict[str, str]:
     match = FRONTMATTER_RE.match(text)
     if not match:
@@ -60,6 +87,21 @@ def validate_plugin_json(errors: list[str]) -> None:
         errors.append(
             f"{PLUGIN_JSON.relative_to(ROOT)}: missing fields {sorted(missing)}"
         )
+    mcp_servers = data.get("mcpServers", {})
+    for server_name, server_cfg in mcp_servers.items():
+        cmd = server_cfg.get("command", "")
+        if not cmd:
+            errors.append(
+                f"{PLUGIN_JSON.relative_to(ROOT)}: mcpServers.{server_name} missing 'command'"
+            )
+            continue
+        classification = classify_mcp_command(cmd)
+        if classification == "relative":
+            errors.append(
+                f"{PLUGIN_JSON.relative_to(ROOT)}: mcpServers.{server_name}.command "
+                f"is a relative path ({cmd!r}); use absolute, "
+                "${CLAUDE_PLUGIN_ROOT}/..., or a $PATH-resolvable binary"
+            )
 
 
 def validate_skill_frontmatter(errors: list[str]) -> list[Path]:

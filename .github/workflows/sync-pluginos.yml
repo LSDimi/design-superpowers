@@ -1,0 +1,45 @@
+name: Sync PluginOS skill
+
+on:
+  schedule:
+    # Monday 06:00 UTC
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    env:
+      # Remove this once upstream PR #4 (v0.4.0) merges to main.
+      PLUGINOS_BRANCH: feat/sprints-b-c-activation
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Run sync script
+        run: ./scripts/sync_pluginos.sh
+
+      - name: Create or update PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          branch: chore/sync-pluginos
+          title: "chore: sync pluginos-figma skill from upstream"
+          body: |
+            Weekly automated sync of the vendored `pluginos-figma` skill
+            from [LSDimi/PluginOS](https://github.com/LSDimi/PluginOS).
+
+            **Source SHA:** see `skills/pluginos-figma/UPSTREAM.md`
+            **Script:** `scripts/sync_pluginos.sh`
+            **Branch:** controlled by `PLUGINOS_BRANCH` in the workflow env.
+
+            Close this PR if you don't want the update. It will be
+            re-opened next week if upstream changes again.
+          commit-message: "chore: sync pluginos-figma skill"
+          delete-branch: false
