@@ -49,11 +49,23 @@ Commands announce the detected level at the start of every session.
 
 ## Getting started
 
-1. Install as a Claude Code plugin (this repo IS the plugin — point Claude Code at this directory)
-2. Run any command in a project directory. The skill will detect your maturity level and ask 2-3 clarifying questions before proceeding
-3. For existing design systems, create a `.ds-context.md` at your project root with Figma library keys and token collection names
+1. **Install the plugin.** Point Claude Code at this directory (or install from the GitHub release). On first session after install, Claude Code auto-registers the `pluginos` MCP server declared in `plugin.json` — no manual config edit required.
 
-**Team entry point:** [`skills/README.md`](skills/README.md) — routing matrix, architecture diagram, and a quick reference for designers
+2. **Install the Figma bridge** (one-time, per machine).
+
+   The [PluginOS MCP Bridge](https://www.figma.com/community/plugin/1626608701431483287/pluginos-mcp-bridge-for-llms) is currently under Figma Community review. Until approved, dev-import it:
+
+   - Figma Desktop → Plugins → Development → Import plugin from manifest
+   - Run `npx pluginos --manifest-path` in a terminal to get the path
+   - Run the bridge from Plugins → Development → PluginOS MCP Bridge
+
+   Once the Community listing is live, this becomes a single click from the URL above.
+
+3. **Run any command.** `/creative`, `/ds-make`, `/design`, `/design-review`, `/map-design`, `/ds-manage` — each detects project maturity (L0 Greenfield → L3 Enterprise) and asks 2–3 clarifying questions before acting.
+
+4. **Optional: for existing design systems**, create a `.ds-context.md` at your project root with Figma library keys, token collection names, and governance metadata. See `skills/shared/ds-context-schema.md` for the full schema.
+
+**Team entry point:** [`skills/README.md`](skills/README.md) — routing matrix, architecture diagram, and a quick reference for designers.
 
 ## Project layout
 
