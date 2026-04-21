@@ -1,8 +1,14 @@
 {
   "name": "design-superpowers",
-  "version": "0.1.0",
-  "description": "Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. Adapts from greenfield projects to enterprise design systems.",
+  "version": "0.2.0",
+  "description": "Six universal Claude Code commands for design teams, backed by a 4-layer knowledge system. Ships with PluginOS for Figma integration.",
   "author": {
     "name": "Dimitrios Arapis"
+  },
+  "mcpServers": {
+    "pluginos": {
+      "command": "npx",
+      "args": ["-y", "pluginos"]
+    }
   }
 }
