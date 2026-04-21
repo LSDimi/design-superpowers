@@ -33,8 +33,8 @@ YAML frontmatter for structured fields. Optional prose body for free-form notes.
 
 | Field | Type | Required | Default | Description |
 |-------|------|----------|---------|-------------|
-| `figma.adapter` | enum | no | unset | `pluginos`, `figma-mcp`, or unset. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/figma-adapter.md` for detection flow. |
-| `figma.status` | enum | no | unset | `ready`, `pending-setup`, or unset. |
+| `figma.adapter` | enum | no | `pluginos` | Defaults to `pluginos` — the bundled adapter. Only set explicitly to `figma-mcp` if opting into the classic Figma Dev Mode MCP fallback. Valid values: `pluginos`, `figma-mcp`. |
+| `figma.status` | enum | no | `ready` | `ready`, `bridge-pending`. |
 | `figma.libraries` | array | no | `[]` | Figma library entries. Each has `name`, `key`, and `role`. |
 
 **Library roles:** `tokens`, `components`, `patterns`, `icons`, `documentation`, or custom strings. Role determines which cascade stage a library belongs to.
