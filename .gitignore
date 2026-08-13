@@ -1,0 +1,19 @@
+.DS_Store
+.claude/
+node_modules/
+*.log
+.env
+.env.*
+dist/
+build/
+.cache/
+
+# internal working docs — only the public receipts stay tracked
+docs/superpowers/*
+!docs/superpowers/specs/
+!docs/superpowers/test-run-2026-07-13-results.md
+!docs/superpowers/benchmark-2026-07.md
+
+# generated font inventories
+fonts-inventory.txt
+fonts-figma.txt

@@ -1,0 +1,30 @@
+{
+  "name": "design-superpowers",
+  "description": "Six Claude Code commands that make AI work like a design team: direction, design systems, product design, review, governance. Maturity-aware (L0 greenfield to L3 enterprise), Figma-optional via PluginOS, font-aware, behavior-validated.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Dimitrios Arapis"
+  },
+  "keywords": [
+    "design",
+    "design-system",
+    "figma",
+    "creative",
+    "ux",
+    "accessibility"
+  ],
+  "skills": [
+    "./skills/creative",
+    "./skills/design",
+    "./skills/design-review",
+    "./skills/ds-consumer",
+    "./skills/ds-make",
+    "./skills/ds-manage",
+    "./skills/ds-producer",
+    "./skills/figma-setup",
+    "./skills/map-design"
+  ],
+  "homepage": "https://github.com/LSDimi/design-superpowers",
+  "repository": "https://github.com/LSDimi/design-superpowers",
+  "license": "MIT"
+}
