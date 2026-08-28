@@ -2,6 +2,8 @@
 
 Six universal Claude Code commands that make AI work like a design team, from first moodboard to enterprise design-system governance. MIT-licensed, behavior-validated, Figma-optional.
 
+Built by [Dimitrios Arapis](https://arapis.de) - the full story of this toolchain is at [arapis.de/work/open-tooling](https://arapis.de/work/open-tooling).
+
 ![design-superpowers](assets/banner.png)
 
 ## What it does
