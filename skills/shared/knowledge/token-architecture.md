@@ -1,6 +1,6 @@
 # Token Architecture (L2)
 
-> Loaded by /ds-make Token Architect, /map-design Token Extractor. See `skills/shared/examples/minimal-ds-context.example.md` for a starting-point configuration.
+> Loaded by /ds-make Token Architect, /map-design Token Extractor. See `${CLAUDE_PLUGIN_ROOT}/skills/shared/examples/minimal-ds-context.example.md` for a starting-point configuration.
 
 ## 3-Tier Model
 
